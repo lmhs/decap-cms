@@ -11,6 +11,32 @@ describe('serializeValues', () => {
       fromJS({ title: 'New Post', unknown: 'Unknown Field' }),
     );
   });
+
+  it('should replace lists instead of concatenating them', () => {
+    const listValues = fromJS({
+      images: [
+        { title: 'default image', url: 'https://image.png' },
+        { title: 'second image', url: 'https://image2.png' },
+      ],
+    });
+    const listFields = fromJS([
+      {
+        name: 'images',
+        widget: 'list',
+        fields: [
+          { name: 'title', widget: 'text' },
+          { name: 'url', widget: 'text' },
+        ],
+      },
+    ]);
+    const serializedValues = serializeValues(listValues, listFields);
+
+    expect(serializedValues.get('images').toJS()).toEqual([
+      { title: 'default image', url: 'https://image.png' },
+      { title: 'second image', url: 'https://image2.png' },
+    ]);
+    expect(serializedValues.get('images').size).toBe(2);
+  });
 });
 
 describe('deserializeValues', () => {

@@ -910,7 +910,7 @@ export class Backend {
       }
 
       const mediaFiles = await Promise.all<MediaFile>(
-        (entry.get('mediaFiles').toJS() as unknown as MediaFile[]).map(async file => {
+        (entry.get('mediaFiles').toJS() as unknown as MediaFile[]).map(async (file: MediaFile) => {
           // make sure to serialize the file
           if (file.url?.startsWith('blob:')) {
             const blob = await fetch(file.url as string).then(res => res.blob());

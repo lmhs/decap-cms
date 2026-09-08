@@ -29,7 +29,7 @@ function unpublishedEntries(state = Map(), action: EditorialWorkflowAction) {
     case CONFIG_SUCCESS: {
       const publishMode = action.payload && action.payload.publish_mode;
       if (publishMode === EDITORIAL_WORKFLOW) {
-        //  Editorial workflow state is explicitly initiated after the config.
+        // Editorial workflow state is explicitly initiated after the config.
         return Map({ entities: Map(), pages: Map() });
       }
       return state;
